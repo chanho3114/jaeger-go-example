@@ -1,5 +1,5 @@
 ARG port=8082
-ARG app=service-b
+ARG app=service-b-test
 
 FROM golang as builder
 ARG app
@@ -22,4 +22,4 @@ ARG port
 COPY --from=builder /out/${app} /app/
 
 EXPOSE ${port}
-ENTRYPOINT ["/app/service-b"]
+ENTRYPOINT ["/app/service-b-test"]

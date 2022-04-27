@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: service-ab
+spec:
+  containers:
+  - name: service-a
+    image: cyberguy61/service-a
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8081
+    env:
+    - name: OUTBOUND_HOST_PORT
+      value: "localhost:8082"
+    - name: JAEGER_SERVICE_NAME
+      value: "service-a"
+    - name: JAEGER_AGENT_HOST
+      value: "192.168.77.79"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_REPORTER_LOG_SPANS
+      value: "true"
+  - name: service-b
+    image: cyberguy61/service-b
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8082
+    env:
+    - name: JAEGER_SERVICE_NAME
+      value: "service-b"
+    - name: JAEGER_AGENT_HOST
+      value: "192.168.77.79"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_REPORTER_LOG_SPANS
+      value: "true"

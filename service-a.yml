@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: service-a
+spec:
+  containers:
+  - name: service-a
+    image: service-a
+    env:
+    - name: OUTBOUND_HOST_PORT
+      value: "service-b:8082"
+    - name: JAEGER_SERVICE_NAME
+      value: "service-a"
+    - name: JAEGER_AGENT_HOST
+      value: "jaeger"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+    - name: JAEGER_REPORTER_LOG_SPANS
+      value: "true"
